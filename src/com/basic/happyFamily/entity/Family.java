@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Family {
-    private Human mother;
-    private Human father;
+    private Woman mother;
+    private Man father;
     private Human[] children;
     private Pet pet;
 
@@ -18,7 +18,7 @@ public class Family {
         System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
-    public Family(Human mother, Human father) {
+    public Family(Woman mother, Man father) {
         this.mother = mother;
         this.father = father;
 
@@ -26,11 +26,11 @@ public class Family {
         father.setFamily(this);
     }
 
-    public Human getMother() {
+    public Woman getMother() {
         return mother;
     }
 
-    public void setMother(Human mother) {
+    public void setMother(Woman mother) {
         this.mother = mother;
     }
 
@@ -50,11 +50,11 @@ public class Family {
         this.children = children;
     }
 
-    public Human getFather() {
+    public Man getFather() {
         return father;
     }
 
-    public void setFather(Human father) {
+    public void setFather(Man father) {
         this.father = father;
     }
 

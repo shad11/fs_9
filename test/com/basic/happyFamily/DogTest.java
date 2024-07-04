@@ -1,14 +1,15 @@
 package com.basic.happyFamily;
 
-import com.basic.happyFamily.entity.Pet;
+import com.basic.happyFamily.entity.Dog;
+import com.basic.happyFamily.entity.DomesticCat;
 import com.basic.happyFamily.enums.Species;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PetTest {
-    private Pet pet;
+public class DogTest {
+    private Dog pet; // private Pet pet;
     private Species species;
     private String nickname;
     private double age;
@@ -16,7 +17,6 @@ public class PetTest {
     private String[] habits;
 
     {
-        species = Species.DOG;
         nickname = "Mafia";
         age = 2;
         trickLevel = 45;
@@ -25,7 +25,7 @@ public class PetTest {
 
     @BeforeEach
     public void setUp() {
-        pet = new Pet(species, nickname, age, trickLevel, habits);
+        pet = new Dog(nickname, age, trickLevel, habits);
     }
 
     @Test
@@ -38,14 +38,14 @@ public class PetTest {
 
     @Test
     public void testEqualsThisObject() {
-        Pet petNew = pet;
+        Dog petNew = pet;
 
         assertEquals(pet, petNew);
     }
 
     @Test
     public void testEqualsSameObject() {
-        Pet petNew = new Pet(species, nickname, age, trickLevel, habits);
+        Dog petNew = new Dog(nickname, age, trickLevel, habits);
 
         assertEquals(pet, petNew);
     }
@@ -59,14 +59,14 @@ public class PetTest {
 
     @Test
     public void testEqualsAnotherPetObject() {
-        Pet petNew = new Pet(Species.CAT, "Mafia");
+        DomesticCat petNew = new DomesticCat("Mafia");
 
         assertNotEquals(pet, petNew);
     }
 
     @Test
     public void testHashCodeEqual() {
-        Pet petNew = new Pet(species, nickname, age, trickLevel, habits);
+        Dog petNew = new Dog(nickname, age, trickLevel, habits);
         int expected = pet.hashCode();
         int actual = petNew.hashCode();
 
@@ -75,7 +75,7 @@ public class PetTest {
 
     @Test
     public void testHashCodeNotEqual() {
-        Pet petNew = new Pet(species, nickname);
+        Dog petNew = new Dog(nickname);
         int expected = pet.hashCode();
         int actual = petNew.hashCode();
 

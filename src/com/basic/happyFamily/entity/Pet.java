@@ -4,7 +4,7 @@ import com.basic.happyFamily.enums.Species;
 
 import java.util.Arrays;
 
-public class Pet {
+public abstract class Pet {
     private Species species;
     private String nickname;
     private double age;
@@ -17,18 +17,17 @@ public class Pet {
 
     {
         habits = new String[0];
+        species = Species.UNKNOWN;
         System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
     public Pet() {}
 
-    public Pet(Species species, String nickname) {
-        this.species = species;
+    public Pet(String nickname) {
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, double age, int trickLevel, String[] habits) {
-        this.species = species;
+    public Pet(String nickname, double age, int trickLevel, String[] habits) {
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
@@ -123,11 +122,5 @@ public class Pet {
         System.out.println("I'm eating!");
     }
 
-    public void respond() {
-        System.out.printf("Hi, my owner! I'm %s. I missed you!\n", nickname);
-    }
-
-    public void foul() {
-        System.out.println("I need to cover my tracks well...");
-    }
+    public abstract void respond();
 }

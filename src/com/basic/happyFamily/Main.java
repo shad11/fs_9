@@ -1,10 +1,7 @@
 package com.basic.happyFamily;
 
-import com.basic.happyFamily.entity.Human;
-import com.basic.happyFamily.entity.Family;
-import com.basic.happyFamily.entity.Pet;
+import com.basic.happyFamily.entity.*;
 import com.basic.happyFamily.enums.DayOfWeek;
-import com.basic.happyFamily.enums.Species;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,10 +11,10 @@ public class Main {
 //            human = new Human("Name" + i, "Surname" + i);
 //        }
 
-        Human motherTailor = new Human("Sara", "Tailor", 1986);
-        Human fatherTailor = new Human("John", "Tailor", 1984);
+        Woman motherTailor = new Woman("Sara", "Tailor", 1986, 180, new String[][]{});
+        Man fatherTailor = new Man("John", "Tailor", 1984, 150, new String[][]{});
         Family familyTailor = new Family(motherTailor, fatherTailor);
-        Pet petTailor = new Pet(Species.DOG, "Tom", 2, 45, new String[]{});
+        Pet petTailor = new Dog("Tom", 2, 45, new String[]{});
         String[][] scheduleMother = {
                 {DayOfWeek.MONDAY.name(), "go to work"},
                 {DayOfWeek.SUNDAY.name(), "meet with friends"}
@@ -27,6 +24,14 @@ public class Main {
         motherTailor.setSchedule(scheduleMother);
 
         System.out.println("--------- Tailor Family ---------");
+        System.out.println(familyTailor);
+
+        try {
+            motherTailor.bornChild();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("--------- Tailor Family after a child as was born ---------");
         System.out.println(familyTailor);
     }
 }
