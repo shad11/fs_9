@@ -1,20 +1,20 @@
 package com.basic.happyFamily.entity;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class Family {
     private Woman mother;
     private Man father;
-    private Human[] children;
-    private Pet pet;
+    private List<Human> children;
+    private Set<Pet> pets;
 
     static {
         System.out.println("Class Family is loaded");
     }
 
     {
-        children = new Human[0];
+        children = new ArrayList<>();
+        pets = new HashSet<>();
         System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
@@ -34,19 +34,19 @@ public class Family {
         this.mother = mother;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Set<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public void setChildren(Human[] children) {
+    public void setChildren(List<Human> children) {
         this.children = children;
     }
 
@@ -81,8 +81,8 @@ public class Family {
         return "Mother: %s,\nFather: %s,\nTheir children:%s,\nPet: %s".formatted(
                 mother.toString(),
                 father.toString(),
-                Arrays.toString(children),
-                pet == null ? "No pet" : pet.toString()
+                children.toString(),
+                pets == null ? "No pet" : pets.toString()
         );
     }
 
@@ -92,47 +92,28 @@ public class Family {
     }
 
     public void addChild(Human child) {
-        int  childrenCnt = children.length;
-
-        children = Arrays.copyOf(children, childrenCnt + 1);
-        children[childrenCnt] = child;
+        children.add(child);
         child.setFamily(this);
     }
 
     public boolean deleteChild(int index) {
-        if (index < 0 || index >= children.length) {
+        if (index < 0 || index >= children.size()) {
             return false;
         }
 
-        Human[] childrenNew = new Human[children.length - 1];
-
-        for (int i = 0; i < children.length; i++) {
-            if (i == index) {
-                children[i].setFamily(null);
-                continue;
-            }
-            childrenNew[i] = children[i];
-        }
-
-        children = childrenNew;
+        children.remove(index);
         return true;
     }
 
     public boolean deleteChild(Human childDeleted) {
-        int ind = 0;
+        return children.remove(childDeleted);
+    }
 
-        for (Human child : children) {
-            if (child.equals(childDeleted)) {
-                return deleteChild(ind);
-            }
-
-            ind++;
-        }
-
-        return false;
+    public boolean addPet(Pet pet) {
+        return pets.add(pet);
     }
 
     public int countFamily() {
-        return 2 + children.length;
+        return 2 + children.size();
     }
 }

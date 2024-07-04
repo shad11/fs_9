@@ -1,14 +1,13 @@
 package com.basic.happyFamily.entity;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Human {
     private String name;
     private String surname;
     private int year;
     private int iq;
-    private String[][] schedule;
+    private Map<String, String> schedule;
     private Family family;
 
     static {
@@ -16,7 +15,7 @@ public class Human {
     }
 
     {
-        schedule = new String[0][0];
+        schedule = new HashMap<>();
         System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
@@ -33,7 +32,7 @@ public class Human {
         this.year = year;
     }
 
-    public Human(String name, String surname, int year, int iq, String[][] schedule) {
+    public Human(String name, String surname, int year, int iq, Map<String, String> schedule) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -73,11 +72,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public String[][] getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -124,10 +123,13 @@ public class Human {
     public String toString() {
         String scheduleStr = "[";
 
-        for (String[] scheduleDay : schedule) {
-            // scheduleStr += Arrays.toString(scheduleDay);
-            scheduleStr += "[%s: %s]".formatted(scheduleDay[0], scheduleDay[1]);
+        if (!schedule.isEmpty()) {
+            for (Map.Entry<String, String> entry : schedule.entrySet()) {
+                String day = entry.getKey();
+                String task = entry.getValue();
 
+                scheduleStr += "[%s: %s]".formatted(day, task);
+            }
         }
 
         scheduleStr += "]";
@@ -146,26 +148,43 @@ public class Human {
         System.out.println("Human object is deleted: " + this);
     }
 
-    public void greetPet() {
-        Pet pet = getFamily().getPet();
+    public void addTask(String day, String task) {
+        String tasks = schedule.get(day);
+        String tasksNew = tasks == null ? task : tasks + ", " + task;
 
-        System.out.printf("Hi, %s\n", pet.getNickname());
+        schedule.put(day, tasksNew);
+    }
+
+    public void greetPet() {
+        Set<Pet> pets = getFamily().getPets();
+        String nicknames = "";
+
+        if (pets.isEmpty()) {
+            System.out.println("I don't have pets");
+        }
+
+        for (Pet pet : pets) {
+            nicknames += pet.getNickname() + " ,";
+        }
+
+        System.out.printf("Hi, %s\n", nicknames);
     }
 
     public void describePet() {
-        Pet pet = getFamily().getPet();
+        Set<Pet> pets = getFamily().getPets();
 
-        String trickyMsg = pet.getTrickLevel() > 50 ? "very tricky" : "almost not tricky";
+        for (Pet pet : pets) {
+            String trickyMsg = pet.getTrickLevel() > 50 ? "very tricky" : "almost not tricky";
 
-        System.out.printf("I have a %s, it's %.2f years old, it's %s\n",
-                pet.getSpecies(),
-                pet.getAge(),
-                trickyMsg
-        );
+            System.out.printf("I have a %s, it's %.2f years old, it's %s\n",
+                    pet.getSpecies(),
+                    pet.getAge(),
+                    trickyMsg
+            );
+        }
     }
 
-    public boolean feedPet(boolean feed) {
-        Pet pet = getFamily().getPet();
+    public boolean feedPet(boolean feed, Pet pet) {
         int randomNumber = new Random().nextInt(101);
         boolean needFeed = feed || pet.getTrickLevel() > randomNumber;
 

@@ -2,21 +2,22 @@ package com.basic.happyFamily.entity;
 
 import com.basic.happyFamily.enums.Species;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Pet {
     private Species species;
     private String nickname;
     private double age;
     private int trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
     static {
         System.out.println("Class Pet is loaded");
     }
 
     {
-        habits = new String[0];
+        habits = new HashSet<>();
         species = Species.UNKNOWN;
         System.out.println("Instance " + this.getClass() + " is loaded");
     }
@@ -27,7 +28,7 @@ public abstract class Pet {
         this.nickname = nickname;
     }
 
-    public Pet(String nickname, double age, int trickLevel, String[] habits) {
+    public Pet(String nickname, double age, int trickLevel, Set<String> habits) {
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
@@ -66,11 +67,11 @@ public abstract class Pet {
         this.trickLevel = trickLevel;
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 
@@ -104,18 +105,24 @@ public abstract class Pet {
 
     @Override
     public String toString() {
+        String habitsStr = !habits.isEmpty() ? habits.toString() : "[]";
+
         return "%s{nickname='%s', age=%.2f, trickLevel=%d, habits=%s}".formatted(
                 species.toString(),
                 nickname,
                 age,
                 trickLevel,
-                Arrays.toString(habits)
+                habitsStr
         );
     }
 
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Pet object is deleted: " + this);
+    }
+
+    public void addHabit(String habit) {
+        habits.add(habit);
     }
 
     public void eat() {

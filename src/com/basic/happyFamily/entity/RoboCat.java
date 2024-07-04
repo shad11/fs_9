@@ -2,6 +2,8 @@ package com.basic.happyFamily.entity;
 
 import com.basic.happyFamily.enums.Species;
 
+import java.util.Set;
+
 public class RoboCat extends Pet {
     public RoboCat() {
         super();
@@ -13,7 +15,7 @@ public class RoboCat extends Pet {
         setSpecies(Species.ROBO_CAT);
     }
 
-    public RoboCat(String nickname, double age, int trickLevel, String[] habits) {
+    public RoboCat(String nickname, double age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
         setSpecies(Species.ROBO_CAT);
     }

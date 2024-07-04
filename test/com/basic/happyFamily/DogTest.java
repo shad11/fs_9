@@ -6,6 +6,9 @@ import com.basic.happyFamily.enums.Species;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DogTest {
@@ -14,13 +17,13 @@ public class DogTest {
     private String nickname;
     private double age;
     private int trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
     {
         nickname = "Mafia";
         age = 2;
         trickLevel = 45;
-        habits = new String[]{};
+        habits = new HashSet<>();
     }
 
     @BeforeEach

@@ -2,7 +2,9 @@ package com.basic.happyFamily.entity;
 
 import com.basic.happyFamily.interfaces.IHumanCreator;
 
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public final class Woman extends Human implements IHumanCreator {
     public Woman() {}
@@ -15,15 +17,24 @@ public final class Woman extends Human implements IHumanCreator {
         super(name, surname, year);
     }
 
-    public Woman(String name, String surname, int year, int iq, String[][] schedule) {
+    public Woman(String name, String surname, int year, int iq, Map<String, String> schedule) {
         super(name, surname, year, iq, schedule);
     }
 
     @Override
     public void greetPet() {
-        Pet pet = getFamily().getPet();
+        Set<Pet> pets = getFamily().getPets();
+        String nicknames = "";
 
-        System.out.printf("Hi, %s\n. I'm your mommy", pet.getNickname());
+        if (pets.isEmpty()) {
+            System.out.println("I don't have pets");
+        }
+
+        for (Pet pet : pets) {
+            nicknames += pet.getNickname() + " ,";
+        }
+
+        System.out.printf("Hi, %s\n. I'm your mommy", nicknames);
     }
 
     @Override

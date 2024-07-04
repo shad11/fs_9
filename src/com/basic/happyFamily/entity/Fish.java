@@ -3,6 +3,8 @@ package com.basic.happyFamily.entity;
 import com.basic.happyFamily.enums.Species;
 import com.basic.happyFamily.interfaces.IPet;
 
+import java.util.Set;
+
 public class Fish extends Pet implements IPet {
     {
         setSpecies(Species.FISH);
@@ -16,7 +18,7 @@ public class Fish extends Pet implements IPet {
         super(nickname);
     }
 
-    public Fish(String nickname, double age, int trickLevel, String[] habits) {
+    public Fish(String nickname, double age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
     }
 

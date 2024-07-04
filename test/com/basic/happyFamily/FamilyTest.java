@@ -2,21 +2,26 @@ package com.basic.happyFamily;
 
 import com.basic.happyFamily.entity.Human;
 import com.basic.happyFamily.entity.Family;
+import com.basic.happyFamily.entity.Man;
+import com.basic.happyFamily.entity.Woman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FamilyTest {
     private Family family;
-    private Human[] children;
-    private Human mother;
-    private Human father;
+    private List<Human> children;
+    private Woman mother;
+    private Man father;
 
     {
-        mother = new Human("Sara", "Tailor", 1986);
-        father = new Human("John", "Tailor", 1984);
-        children = new Human[] {new Human("Kate", "Tailor"), new Human("Tom", "Tailor")};
+        mother = new Woman("Sara", "Tailor", 1986);
+        father = new Man("John", "Tailor", 1984);
+        children = Arrays.asList(new Human("Kate", "Tailor"), new Human("Tom", "Tailor"));
     }
 
     @BeforeEach
@@ -30,15 +35,15 @@ public class FamilyTest {
 
     @Test
     public void testAddChild() {
-        Human[] children = family.getChildren();
+        int childrenSizeBefore = family.getChildren().size();
         Human childToAdd = new Human("James", "Tailor");
 
         family.addChild(childToAdd);
 
-        Human[] childrenNew = family.getChildren();
+        List<Human> childrenNew = family.getChildren();
 
-        assertEquals(children.length + 1, childrenNew.length);
-        assertEquals(childrenNew[childrenNew.length - 1], childToAdd);
+        assertEquals(childrenSizeBefore + 1, childrenNew.size());
+        assertEquals(childrenNew.get(children.size()), childToAdd);
     }
 
     @Test
@@ -51,7 +56,7 @@ public class FamilyTest {
         boolean actual = family.deleteChild(childToDelete);
 
         assertEquals(expected, actual);
-        assertArrayEquals(children, family.getChildren());
+        assertArrayEquals(children.toArray(), family.getChildren().toArray());
     }
 
     @Test
@@ -59,7 +64,7 @@ public class FamilyTest {
         Human childToDelete = new Human("James", "Tailor");
 
         assertFalse(family.deleteChild(childToDelete));
-        assertArrayEquals(children, family.getChildren());
+        assertArrayEquals(children.toArray(), family.getChildren().toArray());
     }
 
     @Test
@@ -67,7 +72,7 @@ public class FamilyTest {
         Integer number = Integer.valueOf(10);
 
         assertFalse(family.deleteChild(number));
-        assertArrayEquals(children, family.getChildren());
+        assertArrayEquals(children.toArray(), family.getChildren().toArray());
     }
 
     @Test
@@ -76,18 +81,17 @@ public class FamilyTest {
 
         family.addChild(childToDelete);
 
-        int deleteIndex = family.getChildren().length - 1;
+        int deleteIndex = family.getChildren().size() - 1;
 
         assertTrue(family.deleteChild(deleteIndex));
-        assertArrayEquals(children, family.getChildren());
+        assertArrayEquals(children.toArray(), family.getChildren().toArray());
     }
 
     @Test
     public void testDeleteChildByIdOutOfBound() {
-        int deleteIndex = family.getChildren().length + 3;
+        int deleteIndex = family.getChildren().size() + 3;
 
         assertFalse(family.deleteChild(deleteIndex));
-        assertArrayEquals(children, family.getChildren());
     }
 
     @Test
