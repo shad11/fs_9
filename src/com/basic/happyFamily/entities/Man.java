@@ -1,4 +1,4 @@
-package com.basic.happyFamily.entity;
+package com.basic.happyFamily.entities;
 
 import java.util.Map;
 import java.util.Set;

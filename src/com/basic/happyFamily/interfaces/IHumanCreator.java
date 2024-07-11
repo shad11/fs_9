@@ -1,6 +1,6 @@
 package com.basic.happyFamily.interfaces;
 
-import com.basic.happyFamily.entity.Human;
+import com.basic.happyFamily.entities.Human;
 
 public interface IHumanCreator {
     String[] boyNames = {"Tom", "John", "Jake", "Mark", "Oliver", "Mike"};

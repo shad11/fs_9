@@ -1,4 +1,4 @@
-package com.basic.happyFamily.entity;
+package com.basic.happyFamily.entities;
 
 import com.basic.happyFamily.interfaces.IHumanCreator;
 

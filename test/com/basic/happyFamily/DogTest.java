@@ -1,7 +1,7 @@
 package com.basic.happyFamily;
 
-import com.basic.happyFamily.entity.Dog;
-import com.basic.happyFamily.entity.DomesticCat;
+import com.basic.happyFamily.entities.Dog;
+import com.basic.happyFamily.entities.DomesticCat;
 import com.basic.happyFamily.enums.Species;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

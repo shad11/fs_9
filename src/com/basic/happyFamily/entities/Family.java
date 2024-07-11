@@ -1,5 +1,6 @@
-package com.basic.happyFamily.entity;
+package com.basic.happyFamily.entities;
 
+import java.time.Year;
 import java.util.*;
 
 public class Family {
@@ -8,14 +9,14 @@ public class Family {
     private List<Human> children;
     private Set<Pet> pets;
 
-    static {
-        System.out.println("Class Family is loaded");
-    }
+//    static {
+//        System.out.println("Class Family is loaded");
+//    }
 
     {
         children = new ArrayList<>();
         pets = new HashSet<>();
-        System.out.println("Instance " + this.getClass() + " is loaded");
+//        System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
     public Family(Woman mother, Man father) {
@@ -115,5 +116,25 @@ public class Family {
 
     public int countFamily() {
         return 2 + children.size();
+    }
+
+    public void bornChild(String boyName, String girlName) {
+        Human child;
+        Random random = new Random();
+        int year = Year.now().getValue();
+        String surname = father.getSurname();
+
+        if (random.nextBoolean()) {
+            child = new Woman(girlName, surname, year);
+        } else {
+            child = new Man(boyName, surname, year);
+        }
+
+        int iq = (mother.getIq() + father.getIq()) / 2;
+
+        child.setIq(iq);
+        child.setFamily(this);
+
+        addChild(child);
     }
 }

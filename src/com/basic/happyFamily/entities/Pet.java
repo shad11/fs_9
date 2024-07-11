@@ -1,4 +1,4 @@
-package com.basic.happyFamily.entity;
+package com.basic.happyFamily.entities;
 
 import com.basic.happyFamily.enums.Species;
 
@@ -12,14 +12,14 @@ public abstract class Pet {
     private int trickLevel;
     private Set<String> habits;
 
-    static {
-        System.out.println("Class Pet is loaded");
-    }
+//    static {
+//        System.out.println("Class Pet is loaded");
+//    }
 
     {
         habits = new HashSet<>();
         species = Species.UNKNOWN;
-        System.out.println("Instance " + this.getClass() + " is loaded");
+//        System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
     public Pet() {}

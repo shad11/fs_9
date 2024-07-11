@@ -1,9 +1,9 @@
 package com.basic.happyFamily;
 
-import com.basic.happyFamily.entity.Human;
-import com.basic.happyFamily.entity.Family;
-import com.basic.happyFamily.entity.Man;
-import com.basic.happyFamily.entity.Woman;
+import com.basic.happyFamily.entities.Human;
+import com.basic.happyFamily.entities.Family;
+import com.basic.happyFamily.entities.Man;
+import com.basic.happyFamily.entities.Woman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

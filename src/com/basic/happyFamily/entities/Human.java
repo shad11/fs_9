@@ -1,5 +1,6 @@
-package com.basic.happyFamily.entity;
+package com.basic.happyFamily.entities;
 
+import java.time.Year;
 import java.util.*;
 
 public class Human {
@@ -10,13 +11,13 @@ public class Human {
     private Map<String, String> schedule;
     private Family family;
 
-    static {
-        System.out.println("Class Human is loaded");
-    }
+//    static {
+//        System.out.println("Class Human is loaded");
+//    }
 
     {
         schedule = new HashMap<>();
-        System.out.println("Instance " + this.getClass() + " is loaded");
+//        System.out.println("Instance " + this.getClass() + " is loaded");
     }
 
     public Human() {}
@@ -195,5 +196,9 @@ public class Human {
             System.out.printf("I think, %s is not hungry )) \n", pet.getNickname());
             return false;
         }
+    }
+
+    public int getAge() {
+        return Year.now().getValue() - year;
     }
 }
