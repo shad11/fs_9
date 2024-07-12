@@ -19,8 +19,8 @@ public class FamilyTest {
     private Man father;
 
     {
-        mother = new Woman("Sara", "Tailor", 1986);
-        father = new Man("John", "Tailor", 1984);
+        mother = new Woman("Sara", "Tailor", "10/10/1986");
+        father = new Man("John", "Tailor", "15/02/1984");
         children = Arrays.asList(new Human("Kate", "Tailor"), new Human("Tom", "Tailor"));
     }
 

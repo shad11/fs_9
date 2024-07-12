@@ -16,10 +16,10 @@ public class FamilyServiceTest {
     private Man fatherSmith;
 
     {
-        motherTailor = new Woman("Sara", "Tailor", 1986, 180, new HashMap<>());
-        fatherTailor = new Man("John", "Tailor", 1984, 150, new HashMap<>());
-        motherSmith = new Woman("Bella", "Smith", 1989);
-        fatherSmith = new Man("James", "Smith", 1988);
+        motherTailor = new Woman("Sara", "Tailor", "10/10/1986", 180, new HashMap<>());
+        fatherTailor = new Man("John", "Tailor", "15/02/1984", 150, new HashMap<>());
+        motherSmith = new Woman("Bella", "Smith", "20/08/1989");
+        fatherSmith = new Man("James", "Smith", "25/11/1988");
     }
 
     @BeforeEach
@@ -98,7 +98,7 @@ public class FamilyServiceTest {
 
     @Test
     public void testAdoptChild() {
-        Woman adoptChild = new Woman("Jess", fatherTailor.getSurname(), 2010);
+        Woman adoptChild = new Woman("Jess", fatherTailor.getSurname(), "10/05/2010");
         Family family = new Family(motherTailor, fatherTailor);
 
         familyService.adoptChild(family, adoptChild);
@@ -110,7 +110,7 @@ public class FamilyServiceTest {
 
     @Test
     public void testDeleteAllChildrenOlderThen() {
-        Human adoptChild = new Woman("Jess", fatherTailor.getSurname(), 2010);
+        Human adoptChild = new Woman("Jess", fatherTailor.getSurname(), "10/05/2010");
         Family family = new Family(motherTailor, fatherTailor);
 
         familyService.adoptChild(family, adoptChild);

@@ -10,13 +10,26 @@ public final class Man extends Human {
         super(name, surname);
     }
 
-    public Man(String name, String surname, int year) {
-        super(name, surname, year);
+    public Man(String name, String surname, long birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Man(String name, String surname, int year, int iq, Map<String, String> schedule) {
-        super(name, surname, year, iq, schedule);
+    public Man(String name, String surname, String birthDate) {
+        super(name, surname, birthDate);
     }
+
+    public Man(String name, String surname, String birthDate, int iq) {
+        super(name, surname, birthDate, iq);
+    }
+
+    public Man(String name, String surname, long birthDate, int iq, Map<String, String> schedule) {
+        super(name, surname, birthDate, iq, schedule);
+    }
+
+    public Man(String name, String surname, String birthDate, int iq, Map<String, String> schedule) {
+        super(name, surname, birthDate, iq, schedule);
+    }
+
     @Override
     public void greetPet() {
         Set<Pet> pets = getFamily().getPets();

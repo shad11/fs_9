@@ -21,13 +21,18 @@ public class Main {
         familyController.countFamiliesWithMemberNumber(4);
 
         // adding families
-        Woman motherTailor = new Woman("Sara", "Tailor", 1986, 180, new HashMap<>());
-        Man fatherTailor = new Man("John", "Tailor", 1984, 150, new HashMap<>());
+        Woman motherTailor = new Woman("Sara", "Tailor", "10/08/1986", 180, new HashMap<>());
+        Man fatherTailor = new Man("John", "Tailor", "25/04/1984", 150, new HashMap<>());
+
+        System.out.println(fatherTailor);
+
+        System.out.println("---- Describe Tailor father age ----");
+        System.out.println(fatherTailor.describeAge());
 
         familyController.createNewFamily(motherTailor, fatherTailor);
 
-        Woman motherSmith = new Woman("Bella", "Smith", 1989);
-        Man fatherSmith = new Man("James", "Smith", 1988);
+        Woman motherSmith = new Woman("Bella", "Smith", "01/07/1989");
+        Man fatherSmith = new Man("James", "Smith", "03/06/1988");
 
         familyController.createNewFamily(motherSmith, fatherSmith);
 
@@ -37,7 +42,7 @@ public class Main {
         // Tailors born a child
         familyController.bornChild(familyTailor, "Tom", "Kate");
 
-        Human adoptChild = new Woman("Jess", fatherTailor.getSurname(), 2010);
+        Human adoptChild = new Woman("Jess", fatherTailor.getSurname(), "23/11/2010");
         familyController.adoptChild(familyTailor, adoptChild);
 
         System.out.println("---- All families after adding children ----");

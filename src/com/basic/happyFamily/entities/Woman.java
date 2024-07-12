@@ -2,6 +2,10 @@ package com.basic.happyFamily.entities;
 
 import com.basic.happyFamily.interfaces.IHumanCreator;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -13,12 +17,24 @@ public final class Woman extends Human implements IHumanCreator {
         super(name, surname);
     }
 
-    public Woman(String name, String surname, int year) {
-        super(name, surname, year);
+    public Woman(String name, String surname, long birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Woman(String name, String surname, int year, int iq, Map<String, String> schedule) {
-        super(name, surname, year, iq, schedule);
+    public Woman(String name, String surname, String birthDate) {
+        super(name, surname, birthDate);
+    }
+
+    public Woman(String name, String surname, String birthDate, int iq) {
+        super(name, surname, birthDate, iq);
+    }
+
+    public Woman(String name, String surname, long birthDate, int iq, Map<String, String> schedule) {
+        super(name, surname, birthDate, iq, schedule);
+    }
+
+    public Woman(String name, String surname, String birthDate, int iq, Map<String, String> schedule) {
+        super(name, surname, birthDate, iq, schedule);
     }
 
     @Override
@@ -64,6 +80,7 @@ public final class Woman extends Human implements IHumanCreator {
         int iq = (getIq() + father.getIq()) / 2;
 
         child.setIq(iq);
+        child.setBirthDate(Instant.now().toEpochMilli());
 
         // add to the family, setting for child a link to the family
         family.addChild(child);
