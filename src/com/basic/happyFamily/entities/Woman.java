@@ -54,10 +54,8 @@ public final class Woman extends Human implements IHumanCreator {
     }
 
     @Override
-    public Human bornChild() throws Exception {
+    public Human bornChild(String boyName, String girlName) throws Exception {
         Human child = null;
-        String surname;
-        int randomNameIndex;
         Family family = getFamily();
 
         if (family == null) {
@@ -65,16 +63,14 @@ public final class Woman extends Human implements IHumanCreator {
         }
 
         Random random = new Random();
-        Man father = family.getFather();
 
-        surname = father.getSurname();
+        Man father = family.getFather();
+        String surname = father.getSurname();
 
         if (random.nextBoolean()) {
-            randomNameIndex = random.nextInt(IHumanCreator.girlNames.length);
-            child = new Woman(IHumanCreator.girlNames[randomNameIndex], surname);
+            child = new Woman(girlName, surname);
         } else {
-            randomNameIndex = random.nextInt(IHumanCreator.boyNames.length);
-            child = new Man(IHumanCreator.boyNames[randomNameIndex], surname);
+            child = new Man(boyName, surname);
         }
 
         int iq = (getIq() + father.getIq()) / 2;
@@ -86,6 +82,15 @@ public final class Woman extends Human implements IHumanCreator {
         family.addChild(child);
 
         return child;
+    }
+
+    @Override
+    public Human bornChild() throws Exception {
+        Random random = new Random();
+        int randomIdxGirl = random.nextInt(IHumanCreator.girlNames.length);
+        int randomIdxBoy = random.nextInt(IHumanCreator.boyNames.length);
+
+        return bornChild(IHumanCreator.girlNames[randomIdxGirl], IHumanCreator.boyNames[randomIdxBoy]);
     }
 
     public void makeup() {

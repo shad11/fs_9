@@ -119,22 +119,10 @@ public class Family {
     }
 
     public void bornChild(String boyName, String girlName) {
-        Human child;
-        Random random = new Random();
-        int year = Year.now().getValue();
-        String surname = father.getSurname();
-
-        if (random.nextBoolean()) {
-            child = new Woman(girlName, surname, year);
-        } else {
-            child = new Man(boyName, surname, year);
+        try {
+            mother.bornChild(boyName, girlName);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        int iq = (mother.getIq() + father.getIq()) / 2;
-
-        child.setIq(iq);
-        child.setFamily(this);
-
-        addChild(child);
     }
 }

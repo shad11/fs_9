@@ -5,9 +5,9 @@ import com.basic.happyFamily.dao.FamilyDao;
 import com.basic.happyFamily.entities.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class FamilyService {
     private final FamilyDao familyDao;
@@ -45,72 +45,55 @@ public class FamilyService {
             return;
         }
 
-        int index = 1;
+        IntStream
+                .range(0, families.size())
+                .forEach(idx ->
+                        System.out.println("Family " + (idx + 1) + ": \n" + families.get(idx))
+                );
 
-        for (Family family : families) {
-            System.out.printf("Family %d: \n", index++);
-            System.out.println(family.toString());
-        }
-    }
-
-    private List<Family> getFamiliesByComparison(int peopleCount, char operation) {
-        List<Family> familiesNew = new ArrayList<>();
-        List<Family> families = familyDao.getAllFamilies();
-
-        for (Family family : families) {
-            switch (operation) {
-                case '>':
-                    if (family.countFamily() > peopleCount) {
-                        familiesNew.add(family);
-                    }
-                    break;
-                case '<':
-                    if (family.countFamily() < peopleCount) {
-                        familiesNew.add(family);
-                    }
-                    break;
-                case '=':
-                    if (family.countFamily() == peopleCount) {
-                        familiesNew.add(family);
-                    }
-                    break;
-            }
-
-        }
-
-        return familiesNew;
     }
 
     public List<Family> getFamiliesBiggerThan(int peopleCount) {
-        List<Family> familiesNew = getFamiliesByComparison(peopleCount, '>');
+        List<Family> familiesNew = getAllFamilies()
+                .stream()
+                .filter(family -> family.countFamily() > peopleCount)
+                .toList();
 
         if (familiesNew.isEmpty()) {
             System.out.println("There are no families with more than " + peopleCount + " people");
         } else {
-            System.out.println("There are families with more than " + peopleCount + " people:");
-            familiesNew.forEach(family -> System.out.println(family.toString()));
+            System.out.println("Families with more than " + peopleCount + " people");
+//            familiesNew.forEach(System.out::println);
+            familiesNew.forEach(family -> {
+                System.out.println("---");
+                System.out.println(family);
+            });
         }
 
         return familiesNew;
     }
 
     public List<Family> getFamiliesLessThan(int peopleCount) {
-        List<Family> familiesNew = getFamiliesByComparison(peopleCount, '<');
+        List<Family> familiesNew = getAllFamilies()
+                .stream()
+                .filter(family -> family.countFamily() < peopleCount)
+                .toList();
 
         if (familiesNew.isEmpty()) {
             System.out.println("There are no families with less than " + peopleCount + " people");
         } else {
-            System.out.println("There are families with less than " + peopleCount + " people:");
-            familiesNew.forEach(family -> System.out.println(family.toString()));
+            System.out.println("Families with less than " + peopleCount + " people");
+            familiesNew.forEach(System.out::println);
         }
 
         return familiesNew;
     }
 
     public int countFamiliesWithMemberNumber(int peopleCount) {
-        List<Family> familiesNew = getFamiliesByComparison(peopleCount, '=');
-
-        return familiesNew.size();
+        return (int) getAllFamilies()
+                .stream()
+                .filter(family -> family.countFamily() == peopleCount)
+                .count();
     }
 
     public Family bornChild(Family family, String boyName, String girlName) {
@@ -128,31 +111,47 @@ public class FamilyService {
     }
 
     public void deleteAllChildrenOlderThen(int age) {
-        List<Family> families = familyDao.getAllFamilies();
-
-        for (Family family : families) {
+        familyDao.getAllFamilies().forEach(family -> {
             List<Human> children = family.getChildren();
+            List<Human> childrenToRemove = new ArrayList<>();
 
-            if (children.isEmpty()) {
-                continue;
-            }
+            children
+                    .stream()
+                    .filter(child -> child.getAge() > age)
+                    .forEach(child -> {
+                        child.setFamily(null);
+                        childrenToRemove.add(child);
+                    });
 
-            Iterator<Human> childrenItr = children.iterator();
-            boolean isChanged = false;
-
-            while (childrenItr.hasNext()) {
-                Human child = childrenItr.next();
-
-                if (child.getAge() > age) {
-                    child.setFamily(null);
-                    childrenItr.remove();
-                    isChanged = true;
-                }
-            }
-
-            if (isChanged) {
+            if (!childrenToRemove.isEmpty()) {
+                children.removeAll(childrenToRemove);
                 familyDao.saveFamily(family);
             }
+        });
+
+//        for (Family family : families) {
+//            List<Human> children = family.getChildren();
+//
+//            if (children.isEmpty()) {
+//                continue;
+//            }
+//
+//            Iterator<Human> childrenItr = children.iterator();
+//            boolean isChanged = false;
+//
+//            while (childrenItr.hasNext()) {
+//                Human child = childrenItr.next();
+//
+//                if (child.getAge() > age) {
+//                    child.setFamily(null);
+//                    childrenItr.remove();
+//                    isChanged = true;
+//                }
+//            }
+//
+//            if (isChanged) {
+//                familyDao.saveFamily(family);
+//            }
 
 //            List<Human> childrenToRemove = new ArrayList<>();
 //
@@ -168,7 +167,7 @@ public class FamilyService {
 //                }
 //                familyDao.saveFamily(family);
 //            }
-        };
+//        }
     }
 
     public Set<Pet> getPets(int familyIdx) {
