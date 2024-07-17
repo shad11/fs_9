@@ -64,7 +64,7 @@ public class Family {
         if (this == obj)
             return true;
 
-        if (obj == null || getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass())  // instanceof
             return false;
 
         Family family = (Family) obj;

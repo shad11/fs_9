@@ -133,7 +133,7 @@ public class Human {
         if (this == obj)
             return true;
 
-        if (obj == null || getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass()) // instanceof
             return false;
 
         Human human = (Human) obj;
