@@ -3,6 +3,8 @@ package com.basic.happyFamily.service;
 import com.basic.happyFamily.dao.CollectionFamilyDao;
 import com.basic.happyFamily.dao.FamilyDao;
 import com.basic.happyFamily.entities.*;
+import com.basic.happyFamily.exceptions.FamilyOverflowException;
+import com.basic.happyFamily.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,18 @@ public class FamilyService {
 
     {
         familyDao = new CollectionFamilyDao();
+    }
+
+    private void printFamilies(List<Family> families) {
+        if (families.isEmpty()) {
+            System.out.println("There are no families!");
+            return;
+        }
+
+        IntStream.range(0, families.size()).forEach(idx -> {
+            System.out.printf("%d) ", idx + 1);
+            System.out.println(families.get(idx).prettyFormat());
+        });
     }
 
     public void createNewFamily(Woman mother, Man father) {
@@ -38,19 +52,7 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        List<Family> families = familyDao.getAllFamilies();
-
-        if (families.isEmpty()) {
-            System.out.println("There are no families!");
-            return;
-        }
-
-        IntStream
-                .range(0, families.size())
-                .forEach(idx ->
-                        System.out.println("Family " + (idx + 1) + ": \n" + families.get(idx))
-                );
-
+        printFamilies(familyDao.getAllFamilies());
     }
 
     public List<Family> getFamiliesBiggerThan(int peopleCount) {
@@ -59,16 +61,7 @@ public class FamilyService {
                 .filter(family -> family.countFamily() > peopleCount)
                 .toList();
 
-        if (familiesNew.isEmpty()) {
-            System.out.println("There are no families with more than " + peopleCount + " people");
-        } else {
-            System.out.println("Families with more than " + peopleCount + " people");
-//            familiesNew.forEach(System.out::println);
-            familiesNew.forEach(family -> {
-                System.out.println("---");
-                System.out.println(family);
-            });
-        }
+        printFamilies(familiesNew);
 
         return familiesNew;
     }
@@ -79,12 +72,7 @@ public class FamilyService {
                 .filter(family -> family.countFamily() < peopleCount)
                 .toList();
 
-        if (familiesNew.isEmpty()) {
-            System.out.println("There are no families with less than " + peopleCount + " people");
-        } else {
-            System.out.println("Families with less than " + peopleCount + " people");
-            familiesNew.forEach(System.out::println);
-        }
+        printFamilies(familiesNew);
 
         return familiesNew;
     }
@@ -96,14 +84,26 @@ public class FamilyService {
                 .count();
     }
 
-    public Family bornChild(Family family, String boyName, String girlName) {
+    public Family bornChild(Family family, String boyName, String girlName) throws FamilyOverflowException {
+        int familyCount = family.countFamily();
+
+        if (familyCount == Constants.FAMILY_SIZE) {
+            throw new FamilyOverflowException("Не може народити, сім'я вже складається з " + familyCount + " людей");
+        }
+
         family.bornChild(boyName, girlName);
         familyDao.saveFamily(family);
 
         return family;
     }
 
-    public Family adoptChild(Family family, Human child) {
+    public Family adoptChild(Family family, Human child) throws FamilyOverflowException {
+        int familyCount = family.countFamily();
+
+        if (familyCount == Constants.FAMILY_SIZE) {
+            throw new FamilyOverflowException("Не можна усиновити, сім'я вже складається з " + familyCount + " людей");
+        }
+
         family.addChild(child);
         familyDao.saveFamily(family);
 

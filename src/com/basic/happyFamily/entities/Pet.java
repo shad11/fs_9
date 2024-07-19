@@ -129,5 +129,17 @@ public abstract class Pet {
         System.out.println("I'm eating!");
     }
 
+    public String prettyFormat() {
+        String habitsStr = !habits.isEmpty() ? habits.toString() : "[]";
+
+        return "species=%s: {nickname='%s', age=%.2f, trickLevel=%d, habits=%s}".formatted(
+                species.toString(),
+                nickname,
+                age,
+                trickLevel,
+                habitsStr
+        );
+    }
+
     public abstract void respond();
 }

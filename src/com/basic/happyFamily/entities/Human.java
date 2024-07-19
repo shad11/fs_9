@@ -3,6 +3,7 @@ package com.basic.happyFamily.entities;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Human {
     private String name;
@@ -141,8 +142,7 @@ public class Human {
         return name.equals(human.getName()) &&
                 surname.equals(human.getSurname()) &&
                 birthDate == human.getBirthDate() &&
-                iq == human.getIq() &&
-                family.equals(human.getFamily());
+                iq == human.getIq();
     }
 
     @Override
@@ -261,6 +261,32 @@ public class Human {
                 fullAge.getYears(),
                 fullAge.getMonths(),
                 fullAge.getDays()
+        );
+    }
+
+    public String prettyFormat() {
+        String scheduleStr = "null";
+
+        if (!schedule.isEmpty()) {
+            scheduleStr = "{";
+
+            scheduleStr += schedule.entrySet()
+                    .stream()
+                    .map(entry -> entry.getKey() + "=" + entry.getValue())
+                    .collect(Collectors.joining(", "));
+
+            scheduleStr += "}";
+        }
+
+        Instant instant = Instant.ofEpochMilli(birthDate);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
+
+        return "{name='%s', surname='%s', birthDate='%s', iq=%d, schedule=%s}".formatted(
+                name,
+                surname,
+                dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                iq,
+                scheduleStr
         );
     }
 }

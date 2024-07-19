@@ -2,6 +2,7 @@ package com.basic.happyFamily.entities;
 
 import java.time.Year;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Family {
     private Woman mother;
@@ -124,5 +125,34 @@ public class Family {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public String prettyFormat() {
+        String childrenStr = "[]";
+        String petsStr = "[]";
+
+        List<Human> children = getChildren();
+        Set<Pet> pets = getPets();
+
+        if (!children.isEmpty()) {
+            childrenStr = "\n\t\t" +
+                    getChildren().stream()
+                            .map(child -> (child instanceof Man ? "boy: " : "girl: ") + child.prettyFormat())
+                            .collect(Collectors.joining(",\n\t\t"));
+        }
+
+        if (!pets.isEmpty()) {
+            petsStr = "\n\t\t" +
+                    pets.stream()
+                            .map(Pet::prettyFormat)
+                            .collect(Collectors.joining(",\n\t\t"));
+        }
+
+        return "family:\n\tmother: %s;\n\tfather: %s;\n\tchildren: %s;\n\tpets: %s".formatted(
+                mother.prettyFormat(),
+                father.prettyFormat(),
+                childrenStr,
+                petsStr
+        );
     }
 }
