@@ -8,7 +8,8 @@ public class Constants {
 
     public static final Map<String, String> MENU_DEFAULT = new LinkedHashMap<>(){{
         put("Вихід", "exit");
-        put("Заповнити тестовими даними", "fillTestData");
+        put("Зберегти дані у файл", "saveDataToFile");
+        put("Завантажити дані з файлу", "loadDataFromFile");
         put("Відобразити весь список сімей", "displayAllFamilies");
         put("Відобразити список сімей, де кількість людей більша за задану", "getFamiliesBiggerThan");
         put("Відобразити список сімей, де кількість людей менша за задану", "getFamiliesLessThan");

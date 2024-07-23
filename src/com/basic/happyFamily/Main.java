@@ -28,8 +28,11 @@ public class Main {
             case "exit":
                 System.exit(0);
                 break;
-            case "fillTestData":
-                familyController.fillTestData();
+            case "saveDataToFile":
+                familyController.saveDataToFile();
+                break;
+            case "loadDataFromFile":
+                familyController.loadDataFromFile();
                 break;
             case "displayAllFamilies":
                 familyController.displayAllFamilies();

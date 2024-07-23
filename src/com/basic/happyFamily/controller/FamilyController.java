@@ -3,6 +3,7 @@ package com.basic.happyFamily.controller;
 import com.basic.happyFamily.entities.*;
 import com.basic.happyFamily.exceptions.FamilyOverflowException;
 import com.basic.happyFamily.service.FamilyService;
+import com.basic.happyFamily.utils.Logger;
 import com.basic.happyFamily.utils.Menu;
 
 import java.time.LocalDate;
@@ -77,6 +78,7 @@ public class FamilyController {
         index = inputInteger("Введіть номер сім'ї: ");
 
         if (index < 1 || index > familiesCount) {
+            Logger.error("Wrong family number: " + index);
             System.out.println("Ви ввели невірний номер сім'ї!");
             return -1;
         } else {
@@ -196,18 +198,6 @@ public class FamilyController {
         familyService.addPet(familyIdx, pet);
     }
 
-    public void fillTestData() {
-        Woman motherTailor = new Woman("Sara", "Tailor", "10/08/1986", 180, new HashMap<>());
-        Man fatherTailor = new Man("John", "Tailor", "25/04/1984", 150, new HashMap<>());
-
-        createNewFamily(motherTailor, fatherTailor);
-
-        Woman motherSmith = new Woman("Bella", "Smith", "01/07/1989");
-        Man fatherSmith = new Man("James", "Smith", "03/06/1988");
-
-        createNewFamily(motherSmith, fatherSmith);
-    }
-
     public void editFamily() {
         int index;
         Family family;
@@ -246,6 +236,34 @@ public class FamilyController {
                 default:
                     break;
             }
+        }
+    }
+
+    public void saveDataToFile() {
+        List<Family> families = familyService.getAllFamilies();
+
+        if (families.isEmpty()) {
+            System.out.println("Список сімей пустий. Нічого зберігати.");
+            return;
+        }
+
+        try {
+            familyService.loadData(families);
+            System.out.println("Дані збережені у файл.");
+        } catch (RuntimeException e) {
+            System.out.println("Помилка при зберіганні даних у файл:");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void loadDataFromFile() {
+        try {
+            familyService.loadData();
+            System.out.println("Дані завантажені з файлу.");
+        } catch (RuntimeException e) {
+            System.out.println("Помилка при завантаженні даних з файлу:");
+            System.out.println(e.getMessage());
         }
     }
 }

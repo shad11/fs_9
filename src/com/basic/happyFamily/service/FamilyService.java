@@ -7,6 +7,7 @@ import com.basic.happyFamily.exceptions.FamilyOverflowException;
 import com.basic.happyFamily.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -181,5 +182,25 @@ public class FamilyService {
             family.addPet(pet);
             familyDao.saveFamily(family);
         }
+    }
+
+    public void loadData(List<Family> families) {
+        familyDao.loadData(families);
+    }
+
+    public void loadData() {
+        familyDao.loadData();
+    }
+
+    public void fillTestData() {
+        Woman motherTailor = new Woman("Sara", "Tailor", "10/08/1986", 180, new HashMap<>());
+        Man fatherTailor = new Man("John", "Tailor", "25/04/1984", 150, new HashMap<>());
+
+        createNewFamily(motherTailor, fatherTailor);
+
+        Woman motherSmith = new Woman("Bella", "Smith", "01/07/1989");
+        Man fatherSmith = new Man("James", "Smith", "03/06/1988");
+
+        createNewFamily(motherSmith, fatherSmith);
     }
 }

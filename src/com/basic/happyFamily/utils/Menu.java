@@ -37,6 +37,7 @@ public class Menu {
             number = Integer.parseInt(input.nextLine());
 
             if (!numbers.contains(number)) {
+                Logger.error("Wrong entered number: " + number);
                 System.out.println("Ви ввели невірне число. Спробуйте ще.");
                 continue;
             }

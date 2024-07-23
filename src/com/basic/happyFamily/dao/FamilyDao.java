@@ -14,4 +14,6 @@ public interface FamilyDao {
     void saveFamily(Family family);
     int countFamilies();
     Set<Pet> getPets(int index);
+    void loadData(List<Family> families);
+    void loadData();
 }

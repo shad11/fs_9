@@ -1,11 +1,14 @@
 package com.basic.happyFamily.entities;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Human {
+public class Human implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private String surname;
     private long birthDate;
