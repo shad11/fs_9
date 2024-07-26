@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class LogMessageDao {
-    private final String filePath = "files/application.log";
+    private final String filePath = "files/happyFamily/application.log";
 
     public void save(LogMessage message) {
         try (FileWriter fw = new FileWriter(filePath, true)) {

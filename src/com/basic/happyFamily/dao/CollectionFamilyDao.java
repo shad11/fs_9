@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class CollectionFamilyDao implements FamilyDao {
     private final List<Family> familyList;
-    private final String familiesFile = "files/families.ser";
+    private final String familiesFile = "files/happyFamily/families.ser";
 
     {
         familyList = new ArrayList<>();
